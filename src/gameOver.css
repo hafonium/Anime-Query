@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+    height: 100vh;
+    background-image: url(../images/GameOverBackground.gif);
+    background-repeat: no-repeat;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+}
+
+button {
+    font-size: 2rem;
+    background-color:aqua;
+}
+
+button:hover {
+    background-color: rgb(34, 195, 195);
+}

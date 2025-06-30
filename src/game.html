@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Anime Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body style="display: none;">
+    <div id="container">
+        <div id="query1" class="query">
+            <div class="name">Name</div>
+            <div class="score">Score:</div>
+            <div class="rank">Popularity rank: </div>
+            <div class="type">Type:</div>
+            <div class="genres">Genres:</div>
+            <div id="playerHighscore">High Score: 0</div>
+        </div>
+        <div id="query2" class="query">
+            <div class="name">Name</div>
+            <div id="buttons">
+                <button onclick="higher()">Higher</button>
+                <div>OR</div>
+                <button onclick="lower()">Lower</button>
+            </div>
+            
+            <div class="score">Score:</div>
+            <div class="rank">Popularity rank: </div>
+            <div class="type">Type:</div>
+            <div class="genres">Genres:</div>
+            <div id="playerScore">Score: 0</div>
+        </div>
+        
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

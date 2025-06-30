@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color:aliceblue;
+}
+#container {
+    display: flex;
+    flex-direction: row;
+}
+#query1, #query2 {
+    justify-content: cneter;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#query1, #query2 {
+      background: linear-gradient(
+                rgba(0, 0, 0, 0.5), 
+                rgba(0, 0, 0, 0.5)
+              );
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 50vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+#buttons {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+button {
+    background-color: aqua;
+    font-size: 2rem;
+}
+button:hover {
+    background-color: rgb(34, 195, 195);
+}
+#playerScore {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+}
+
+#playerHighscore {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}

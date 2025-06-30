@@ -7,7 +7,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2.5rem;
     height: 100vh;
-    background-image: url(../images/GameOverBackground.gif);
+    background-image: url(images/GameOverBackground.gif);
     background-repeat: no-repeat;
     display: flex;
     background-size: cover;

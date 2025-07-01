@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Anime Game</title>
-    <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body style="display: none;">
-    <div id="container">
+    <div id="game-state">
         <div id="query1" class="query">
             <div class="name">Name</div>
             <div class="score">Score:</div>
@@ -31,6 +31,14 @@
             <div id="playerScore">Score: 0</div>
         </div>
         
+    </div>
+
+    <div id="gameOver-state">
+        <h3 id="result">BAKA!</h3>
+        <div id="playerScoreResult">Score: </div>
+        <div id="playerHighscoreResult">High score: </div><br>
+        <button id="playAgain" onclick="playAgain()">Play again</button>
+        <script src="index.js"></script>
     </div>
     <script src="index.js"></script>
 </body>

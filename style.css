@@ -3,12 +3,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color:aliceblue;
 }
-#container {
+#game-state {
     display: flex;
     flex-direction: row;
 }
 #query1, #query2 {
-    justify-content: cneter;
+    justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@ body {
               );
 
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     width: 50vw;
     height: 100vh;
@@ -53,3 +53,24 @@ button:hover {
     bottom: 20px;
     left: 20px;
 }
+
+.name {
+    font-size: 2rem;
+}
+
+#gameOver-state {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+    height: 100vh;
+
+    background-image: url(images/GameOverBackground.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color:black;
+}
+

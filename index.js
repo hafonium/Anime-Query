@@ -6,8 +6,11 @@ const genres = document.querySelectorAll(".genres");
 const imgs = document.querySelectorAll(".query");
 const  playerScoreDoc = document.getElementById("playerScore");
 const playerHighscoreDoc = document.getElementById("playerHighscore");
+const  playerScoreResult = document.getElementById("playerScoreResult");
+const playerHighscoreResult = document.getElementById("playerHighscoreResult");
 const queries = [];
-const num = 50;
+const pageList = [];
+const num = 500;
 let playerScore = 0;
 let playerHighscore = 0;
 let curQuery = 1;
@@ -27,12 +30,42 @@ async function fetchData(pageNum) {
     }
 }
 
-async function buildList(num) {
-    for(let i = 0; i < num; i += 25) {
-        const response = await fetchData(Math.floor(i / 25) + 1);
+function randomList(list, length = list.length) {
+    for(let i = 0; i < length; i++) {
+        const pre = Math.floor(Math.random() * (i + 1));
+        [list[pre], list[i]] = [list[i], list[pre]];
+    }
+}
+
+async function preBuildList() {
+    // Pre build 2 pages
+    for(let i = 0; i < 2; i++) {
+        const response = await fetchData(pageList[i]);
         response.data.forEach(element => {
             if(queries.length < num) {
                 queries.push(element);
+            }
+        })
+    }
+    randomList(queries);
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function buildRestList() {
+    // Build the rest
+    for(let i = 2; i < pageList.length; i++) {
+        // Wait 2000ms to fetch the next page
+        await delay(2000);
+        const response = await fetchData(pageList[i]);
+        response.data.forEach(element => {
+            if(queries.length < num) {
+                queries.push(element);
+                const length = queries.length;
+                const pre = Math.floor(Math.random() * (length - curQuery - 1) + curQuery + 1);
+                [queries[length - 1], queries[pre]] = [queries[pre], queries[length - 1]];
             }
         })
     }
@@ -53,13 +86,17 @@ function displayQuery(queryIdx, displayIdx){
     queries[queryIdx].genres.forEach((element, index, arr) => {
        genres[displayIdx].textContent += (element.name + (index === arr.length - 1 ? "":", ")); 
     });
-    imgs[displayIdx].style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${queries[queryIdx].images.jpg.large_image_url}")`;
+    imgs[displayIdx].style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${queries[queryIdx].images.webp.large_image_url}")`;
+}
+
+function displayScore() {
+    playerScoreDoc.textContent = `Score: ${playerScore}`;
+    playerHighscoreDoc.textContent = `High score: ${playerHighscore}`;
 }
 
 function queryHandler() {
     playerHighscore = Math.max(playerScore, playerHighscore);
-    playerScoreDoc.textContent = `Score: ${playerScore}`;
-    playerHighscoreDoc.textContent = `High score: ${playerHighscore}`;
+    displayScore();
     curQuery++;
     console.log(playerScore);
     displayQuery(curQuery - 1, 0);
@@ -67,26 +104,18 @@ function queryHandler() {
 }
 
 function gameOver() {
-    localStorage.setItem("score", playerScore);
-    localStorage.setItem("highscore", playerHighscore);
-    window.location.href = "gameOver.html";
+    playerScoreResult.textContent = `Score: ${playerScore}`;
+    playerHighscoreResult.textContent = `High score: ${playerHighscore}`;
 
-    // const playerScore = localStorage.getItem("score");
-    // const playerHighscore = localStorage.getItem("highscore");
-    // const playerScoreDoc = document.getElementById("playerScore");
-    // const playerHighscoreDoc = document.getElementById("playerHighscore");
-    
-    // playerScoreDoc.textContent = `Score: ${playerScore}`;
-    // playerHighscoreDoc.textContent = `High score: ${playerHighscore}`;
+       document.getElementById("game-state").style = "display: none;";
+    document.getElementById("gameOver-state").style = "display: flex";
 }
 
 function playAgain() {
-    console.log("clicked");
-    window.history.back();
     playerScore = 0;
     curQuery = 1;
-    playerScoreDoc = document.getElementById("playerScore");
-    playerHighscoreDoc = document.getElementById("playerHighscore");
+    document.getElementById("game-state").style = "display: flex";
+    document.getElementById("gameOver-state").style = "display: none";
     game();
 }
 
@@ -104,16 +133,20 @@ function lower() {
 }
 
 function game() {
-    for(let i = 0; i < num; i++) {
-        const pre = Math.floor(Math.random() * (i + 1));
-        [queries[i], queries[pre]] = [queries[pre], queries[i]]; 
-    }
+    randomList(queries, 50);
+    buildRestList();
     displayQuery(0, 0);
     displayQuery(1, 1);
+    displayScore();
 }
 
 document.addEventListener("DOMContentLoaded", async() => {
-    buildList(num).then(() => {
+    for(let i = 1; i <= num / 25; i++) {
+        pageList[i - 1] = i;
+    }
+    randomList(pageList);   
+
+    preBuildList().then(() => {
         game();
         document.body.style.display = "block";
     })

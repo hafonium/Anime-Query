@@ -64,6 +64,7 @@ async function buildRestList() {
             if(queries.length < num) {
                 queries.push(element);
                 const length = queries.length;
+                // 3 6 -> 4 5 6, [0, 1) * 3 -> 0, 1, 2
                 const pre = Math.floor(Math.random() * (length - curQuery - 1) + curQuery + 1);
                 [queries[length - 1], queries[pre]] = [queries[pre], queries[length - 1]];
             }
@@ -73,11 +74,11 @@ async function buildRestList() {
 
 function displayQuery(queryIdx, displayIdx){
     if(displayIdx === 0) {
-        names[displayIdx].textContent = `${queries[queryIdx].title_english}`;
+        names[displayIdx].textContent = `${queries[queryIdx].title}`;
         scores[displayIdx].textContent = `Score: ${queries[queryIdx].score}`;
     }
     else {
-        names[displayIdx].textContent = `${queries[queryIdx].title_english} has a`;
+        names[displayIdx].textContent = `${queries[queryIdx].title} has a`;
         scores[displayIdx].textContent = `score`;
     }
     ranks[displayIdx].textContent = `Popularity rank: ${queries[queryIdx].popularity}`;
@@ -133,8 +134,7 @@ function lower() {
 }
 
 function game() {
-    randomList(queries, 50);
-    buildRestList();
+    randomList(queries);
     displayQuery(0, 0);
     displayQuery(1, 1);
     displayScore();
@@ -145,8 +145,9 @@ document.addEventListener("DOMContentLoaded", async() => {
         pageList[i - 1] = i;
     }
     randomList(pageList);   
-
+    
     preBuildList().then(() => {
+        buildRestList();
         game();
         document.body.style.display = "block";
     })

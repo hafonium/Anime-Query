@@ -123,7 +123,6 @@ function playAgain() {
 function higher() {
     if(queries[curQuery].score >= queries[curQuery - 1].score) playerScore++; 
     else gameOver();
-    console.log(playerScore);
     queryHandler();
 }
 

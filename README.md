@@ -1,1 +1,1 @@
-# Anime-Query
+# Higher-or-Lower-Anime-Game

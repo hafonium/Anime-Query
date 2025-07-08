@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Anime Game</title>
+    <meta name="description" content="A simple anime higher-or-lower game built with the Jikan API">
+    <title>Higher or Lower Anime Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body style="display: none;">
     <div id="game-state">
         <div id="query1" class="query">
@@ -18,7 +20,7 @@
         </div>
         <div id="query2" class="query">
             <div class="name">Name</div>
-            <div id="buttons">
+            <div class="button-container">
                 <button onclick="higher()">Higher</button>
                 <div>OR</div>
                 <button onclick="lower()">Lower</button>
@@ -37,9 +39,9 @@
         <h3 id="result">BAKA!</h3>
         <div id="playerScoreResult">Score: </div>
         <div id="playerHighscoreResult">High score: </div><br>
-        <button id="playAgain" onclick="playAgain()">Play again</button>
-        <script src="index.js"></script>
+        <button onclick="playAgain()">Play again</button>
     </div>
-    <script src="index.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
